@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/tilak-gm/go-grpc-gateway/gen/go/user";
+
+import "google/api/annotations.proto";
+
+message User {
+  int32 user_id = 1 [json_name = "id"];
+  string name = 2 [json_name = "name"];
+  int32 age = 3 [json_name = "age"];
+}
+
+message PayloadWithUserId {
+  int32 user_id = 1;
+}
+
+message PayloadWithSingleUser {
+  User user = 1;
+}
+
+service Orders {
+  rpc GetUser(PayloadWithUserId) returns (PayloadWithSingleUser) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}",
+    };
+  }
+}
