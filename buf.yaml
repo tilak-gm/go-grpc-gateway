@@ -7,3 +7,5 @@ breaking:
     - FILE
 modules:
   - path: proto
+deps:
+  - buf.build/googleapis/googleapis

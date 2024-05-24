@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	const addr = "0.0.0.0:50051"
+	const addr = "localhost:50051"
 	// create a TCP listener on the specified port
 	listener, err := net.Listen("tcp", addr)
 	if err != nil {
@@ -19,7 +19,7 @@ func main() {
 	// create a gRPC server instance
 	server := grpc.NewServer()
 	// register the order service with the grpc server
-	pb.RegisterOrdersServer(server, user.NewService())
+	pb.RegisterUsersServer(server, user.NewService())
 
 	// start listening to requests
 	log.Printf("server listening at %v", listener.Addr())

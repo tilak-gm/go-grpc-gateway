@@ -20,10 +20,10 @@ message PayloadWithSingleUser {
   User user = 1;
 }
 
-service Orders {
+service Users {
   rpc GetUser(PayloadWithUserId) returns (PayloadWithSingleUser) {
     option (google.api.http) = {
-      get: "/v1/user/{user_id}",
+      get: "/v1/users/{user_id}",
     };
   }
 }

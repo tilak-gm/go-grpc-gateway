@@ -6,7 +6,7 @@
   },
   "tags": [
     {
-      "name": "Orders"
+      "name": "Users"
     }
   ],
   "consumes": [
@@ -16,9 +16,9 @@
     "application/json"
   ],
   "paths": {
-    "/v1/user/{userId}": {
+    "/v1/users/{userId}": {
       "get": {
-        "operationId": "Orders_GetUser",
+        "operationId": "Users_GetUser",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -43,7 +43,7 @@
           }
         ],
         "tags": [
-          "Orders"
+          "Users"
         ]
       }
     }

@@ -31,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_Orders_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, client OrdersClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_Users_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, client UsersClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq PayloadWithUserId
 	var metadata runtime.ServerMetadata
 
@@ -57,7 +57,7 @@ func request_Orders_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, 
 
 }
 
-func local_request_Orders_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, server OrdersServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Users_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, server UsersServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq PayloadWithUserId
 	var metadata runtime.ServerMetadata
 
@@ -83,13 +83,13 @@ func local_request_Orders_GetUser_0(ctx context.Context, marshaler runtime.Marsh
 
 }
 
-// RegisterOrdersHandlerServer registers the http handlers for service Orders to "mux".
-// UnaryRPC     :call OrdersServer directly.
+// RegisterUsersHandlerServer registers the http handlers for service Users to "mux".
+// UnaryRPC     :call UsersServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterOrdersHandlerFromEndpoint instead.
-func RegisterOrdersHandlerServer(ctx context.Context, mux *runtime.ServeMux, server OrdersServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterUsersHandlerFromEndpoint instead.
+func RegisterUsersHandlerServer(ctx context.Context, mux *runtime.ServeMux, server UsersServer) error {
 
-	mux.Handle("GET", pattern_Orders_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Users_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -97,12 +97,12 @@ func RegisterOrdersHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/user.Orders/GetUser", runtime.WithHTTPPathPattern("/v1/user/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/user.Users/GetUser", runtime.WithHTTPPathPattern("/v1/users/{user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Orders_GetUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Users_GetUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -110,16 +110,16 @@ func RegisterOrdersHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			return
 		}
 
-		forward_Orders_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Users_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterOrdersHandlerFromEndpoint is same as RegisterOrdersHandler but
+// RegisterUsersHandlerFromEndpoint is same as RegisterUsersHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterOrdersHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterUsersHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
@@ -139,41 +139,41 @@ func RegisterOrdersHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMu
 		}()
 	}()
 
-	return RegisterOrdersHandler(ctx, mux, conn)
+	return RegisterUsersHandler(ctx, mux, conn)
 }
 
-// RegisterOrdersHandler registers the http handlers for service Orders to "mux".
+// RegisterUsersHandler registers the http handlers for service Users to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterOrdersHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterOrdersHandlerClient(ctx, mux, NewOrdersClient(conn))
+func RegisterUsersHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterUsersHandlerClient(ctx, mux, NewUsersClient(conn))
 }
 
-// RegisterOrdersHandlerClient registers the http handlers for service Orders
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "OrdersClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "OrdersClient"
+// RegisterUsersHandlerClient registers the http handlers for service Users
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "UsersClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "UsersClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "OrdersClient" to call the correct interceptors.
-func RegisterOrdersHandlerClient(ctx context.Context, mux *runtime.ServeMux, client OrdersClient) error {
+// "UsersClient" to call the correct interceptors.
+func RegisterUsersHandlerClient(ctx context.Context, mux *runtime.ServeMux, client UsersClient) error {
 
-	mux.Handle("GET", pattern_Orders_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Users_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/user.Orders/GetUser", runtime.WithHTTPPathPattern("/v1/user/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/user.Users/GetUser", runtime.WithHTTPPathPattern("/v1/users/{user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Orders_GetUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Users_GetUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Orders_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Users_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -181,9 +181,9 @@ func RegisterOrdersHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 }
 
 var (
-	pattern_Orders_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "user", "user_id"}, ""))
+	pattern_Users_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "users", "user_id"}, ""))
 )
 
 var (
-	forward_Orders_GetUser_0 = runtime.ForwardResponseMessage
+	forward_Users_GetUser_0 = runtime.ForwardResponseMessage
 )

@@ -19,89 +19,89 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Orders_GetUser_FullMethodName = "/user.Orders/GetUser"
+	Users_GetUser_FullMethodName = "/user.Users/GetUser"
 )
 
-// OrdersClient is the client API for Orders service.
+// UsersClient is the client API for Users service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type OrdersClient interface {
+type UsersClient interface {
 	GetUser(ctx context.Context, in *PayloadWithUserId, opts ...grpc.CallOption) (*PayloadWithSingleUser, error)
 }
 
-type ordersClient struct {
+type usersClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewOrdersClient(cc grpc.ClientConnInterface) OrdersClient {
-	return &ordersClient{cc}
+func NewUsersClient(cc grpc.ClientConnInterface) UsersClient {
+	return &usersClient{cc}
 }
 
-func (c *ordersClient) GetUser(ctx context.Context, in *PayloadWithUserId, opts ...grpc.CallOption) (*PayloadWithSingleUser, error) {
+func (c *usersClient) GetUser(ctx context.Context, in *PayloadWithUserId, opts ...grpc.CallOption) (*PayloadWithSingleUser, error) {
 	out := new(PayloadWithSingleUser)
-	err := c.cc.Invoke(ctx, Orders_GetUser_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Users_GetUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// OrdersServer is the server API for Orders service.
-// All implementations must embed UnimplementedOrdersServer
+// UsersServer is the server API for Users service.
+// All implementations must embed UnimplementedUsersServer
 // for forward compatibility
-type OrdersServer interface {
+type UsersServer interface {
 	GetUser(context.Context, *PayloadWithUserId) (*PayloadWithSingleUser, error)
-	mustEmbedUnimplementedOrdersServer()
+	mustEmbedUnimplementedUsersServer()
 }
 
-// UnimplementedOrdersServer must be embedded to have forward compatible implementations.
-type UnimplementedOrdersServer struct {
+// UnimplementedUsersServer must be embedded to have forward compatible implementations.
+type UnimplementedUsersServer struct {
 }
 
-func (UnimplementedOrdersServer) GetUser(context.Context, *PayloadWithUserId) (*PayloadWithSingleUser, error) {
+func (UnimplementedUsersServer) GetUser(context.Context, *PayloadWithUserId) (*PayloadWithSingleUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
-func (UnimplementedOrdersServer) mustEmbedUnimplementedOrdersServer() {}
+func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}
 
-// UnsafeOrdersServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to OrdersServer will
+// UnsafeUsersServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UsersServer will
 // result in compilation errors.
-type UnsafeOrdersServer interface {
-	mustEmbedUnimplementedOrdersServer()
+type UnsafeUsersServer interface {
+	mustEmbedUnimplementedUsersServer()
 }
 
-func RegisterOrdersServer(s grpc.ServiceRegistrar, srv OrdersServer) {
-	s.RegisterService(&Orders_ServiceDesc, srv)
+func RegisterUsersServer(s grpc.ServiceRegistrar, srv UsersServer) {
+	s.RegisterService(&Users_ServiceDesc, srv)
 }
 
-func _Orders_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Users_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PayloadWithUserId)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrdersServer).GetUser(ctx, in)
+		return srv.(UsersServer).GetUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Orders_GetUser_FullMethodName,
+		FullMethod: Users_GetUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrdersServer).GetUser(ctx, req.(*PayloadWithUserId))
+		return srv.(UsersServer).GetUser(ctx, req.(*PayloadWithUserId))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Orders_ServiceDesc is the grpc.ServiceDesc for Orders service.
+// Users_ServiceDesc is the grpc.ServiceDesc for Users service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Orders_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.Orders",
-	HandlerType: (*OrdersServer)(nil),
+var Users_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.Users",
+	HandlerType: (*UsersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetUser",
-			Handler:    _Orders_GetUser_Handler,
+			Handler:    _Users_GetUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

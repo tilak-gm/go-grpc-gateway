@@ -10,7 +10,7 @@ import (
 //
 // UnimplementedOrdersServer must be embedded to have forwarded compatible implementations.
 type Service struct {
-	pb.UnimplementedOrdersServer
+	pb.UnimplementedUsersServer
 }
 
 func NewService() *Service {
@@ -20,9 +20,12 @@ func NewService() *Service {
 func (u *Service) GetUser(ctx context.Context, req *pb.PayloadWithUserId) (*pb.PayloadWithSingleUser, error) {
 	log.Printf("Received GET user request with payload: %v", req)
 
-	user, err := u.GetUser(context.TODO(), req)
-	if err != nil {
-		log.Fatal("UserService.GetUser err: ", err)
+	// TODO: need to integrate with DB for CRUD operations on Users
+	// returning dummy for now,
+	user := &pb.User{
+		UserId: 1,
+		Name:   "tilak",
+		Age:    26,
 	}
-	return user, nil
+	return &pb.PayloadWithSingleUser{User: user}, nil
 }
