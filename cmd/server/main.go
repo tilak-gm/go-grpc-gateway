@@ -9,9 +9,8 @@ import (
 )
 
 func main() {
-	const addr = "localhost:50051"
 	// create a TCP listener on the specified port
-	listener, err := net.Listen("tcp", addr)
+	listener, err := net.Listen("tcp", ":8000")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

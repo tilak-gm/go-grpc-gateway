@@ -1,0 +1,17 @@
+services:
+  user_service:
+    image: user-service:v1
+    build:
+      context: ../
+      dockerfile: build/Dockerfile
+      target: user-service
+    ports:
+      - '8000/tcp'
+  gateway_service:
+    image: gateway-service:v1
+    build:
+      context: ../
+      dockerfile: build/Dockerfile
+      target: gateway-service
+    ports:
+      - '8080:8080'
